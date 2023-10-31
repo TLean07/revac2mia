@@ -3,22 +3,18 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 
-
 //configurando o roteamento para teste no postman
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 const port = 3000;
 
-
 //configurando o acesso ao mongodb
 mongoose.connect('mongodb://127.0.0.1:27017/revac2mia',
-{   
+{  
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    
+    useUnifiedTopology: true,   
 });
-
 
 //criando a model do seu projeto
 const PessoaSchema = new mongoose.Schema({
@@ -30,9 +26,7 @@ const PessoaSchema = new mongoose.Schema({
     nascimento : {type : Date, required : true}
 });
 
-
 const Pessoa = mongoose.model("Pessoa", PessoaSchema);
-
 
 //configurando os roteamentos
 app.post("/cadastropessoa", async(req, res)=>{
@@ -42,8 +36,7 @@ app.post("/cadastropessoa", async(req, res)=>{
     const numero = req.body.numero;
     const cep  = req.body.cep;
     const nascimento = req.body.nascimento
-
-
+ k
     const pessoa = new Pessoa({
         nome : nome,
         email : email,
@@ -52,7 +45,6 @@ app.post("/cadastropessoa", async(req, res)=>{
         cep : cep,
         nascimento : nascimento
     })
-
 
     try{
         const newPessoa = await pessoa.save();
@@ -68,14 +60,10 @@ app.get("/cadastropessoa", async(req, res)=>{
     res.sendFile(__dirname +"/cadastropessoa.html");
 });
 
-
 //rota raiz - inw
 app.get("/", async(req, res)=>{
     res.sendFile(__dirname +"/index.html");
 });
-
-
-
 
 //configurando a porta
 app.listen(port, ()=>{
